@@ -90,6 +90,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true -- Set to true if NerdFont installed & used in your terminal
+vim.g.netrw_list_hide = '.DS_Store,.git/$,.vscode,.ruby-lsp' -- Setup NetRW ignore list
 
 -- NOTE: Neovim uses `vim.o` to config buffer & window settings. See `:help vim.o`
 -- Change these options however you want! Also see `:help option-list`
@@ -129,7 +130,7 @@ vim.o.splitbelow = true
 
 -- Neovim displays whitespace using these chars. See `:help 'list'` `:help 'listchars'`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } ---@diagnostic disable-line: missing-fields
+vim.o.listchars = 'tab:» ,trail:·,nbsp:␣'
 
 -- Adds confirmation check if operation would leave unsaved changes in buffer (like `:q`)
 vim.o.confirm = true
