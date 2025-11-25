@@ -150,6 +150,30 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Return to Normal mode from Insert Mode
 vim.keymap.set('i', 'kj', '<Esc>')
 
+-- Toggle Vim Spellchecker - See its useful keybindings starting `[` `]` and `z`
+vim.keymap.set('n', '<leader>tc', function()
+  vim.o.spell = not vim.o.spell
+end, { desc = 'Toggle Spell [C]hecker' })
+
+-- Toggle between line number and relative line numbers
+vim.keymap.set('n', '<leader>tl', function()
+  if vim.o.number == true then
+    vim.o.number = false
+    vim.o.relativenumber = true
+  else
+    vim.o.number = true
+    vim.o.relativenumber = false
+  end
+end, { desc = 'Toggle [L]ine Numbers' })
+
+-- Save and quitting
+vim.keymap.set('n', '<leader>ts', vim.cmd.write, { desc = '[S]ave' })
+vim.keymap.set('n', '<leader>tq', vim.cmd.quit, { desc = '[Q]uit' })
+vim.keymap.set('n', '<leader>tf', function()
+  vim.cmd.write()
+  vim.cmd.quit()
+end, { desc = 'Save, Quit, and [F]inish' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
