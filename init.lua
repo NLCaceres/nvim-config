@@ -173,6 +173,14 @@ vim.keymap.set('n', '<leader>tf', function()
   vim.cmd.write()
   vim.cmd.quit()
 end, { desc = 'Save, Quit, and [F]inish' })
+-- WARN: `:Ex` != `:ex` - Uppercase = NetRW File explorer vs the vim `:edit` command
+vim.keymap.set('n', '<leader>on', function()
+  require('mini.files').open()
+end, { desc = 'Go to [N]etRW Directory Listing' })
+vim.keymap.set('n', '<leader>tn', function()
+  vim.cmd.write()
+  require('mini.files').open()
+end, { desc = 'Save and open [N]etRW' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
