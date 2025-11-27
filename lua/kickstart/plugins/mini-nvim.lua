@@ -2,7 +2,7 @@
 
 return {
   {
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
     config = function()
       -- NOTE: Adds new verbs to `Around`/`Inside` motions + new motions like "q" = quotes
       -- Examples:
