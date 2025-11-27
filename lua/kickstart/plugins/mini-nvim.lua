@@ -11,6 +11,21 @@ return {
       --   ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
+      -- NOTE: Acts as an alternate and simpler windowed file explorer instead of NetRW
+      require('mini.files').setup {
+        content = {
+          filter = function(fs_entry) -- Ignore list to de-clutter the explorer
+            local ignore_list = { '%.DS_Store', '^%.git$', '%.vscode', '%.ruby-lsp' }
+            for _, ignored_file in ipairs(ignore_list) do
+              if string.find(fs_entry.name, ignored_file, 1, false) then
+                return false
+              end
+            end
+            return true
+          end,
+        },
+      }
+
       -- NOTE: Adds "s" verb, [s]urrounding text with brackets, quotes, etc
       -- Examples:
       --   saiw) - [S]urround [A]DD [I]nner [W]ord [)]Parentheses
