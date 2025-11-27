@@ -26,6 +26,18 @@ return {
         },
       }
 
+      -- NOTE: Adds highlights to words similar to `todo-comments`
+      local hipatterns = require 'mini.hipatterns'
+      hipatterns.setup {
+        highlighters = {
+          -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+          -- fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+          commentWarn = { pattern = '--!', group = 'MiniHipatternsHack' },
+
+          hex_color = hipatterns.gen_highlighter.hex_color(), -- Colors all hex strings
+        },
+      }
+
       -- NOTE: Adds "s" verb, [s]urrounding text with brackets, quotes, etc
       -- Examples:
       --   saiw) - [S]urround [A]DD [I]nner [W]ord [)]Parentheses
