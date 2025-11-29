@@ -3,10 +3,16 @@ return {
   -- Other interesting colors to consider - Oldworld/Mellow, OneDark
   -- Best to good built colors - retrobox, wildcharm, slate, koehler, sorbet, zaibetsu
   {
+    dir = '~/.config/nvim/lua/my_plugins/vangelion',
+    name = 'vangelion',
+    lazy = false,
+    priority = 1000,
+  },
+  {
     'ray-x/aurora',
     priority = 1000, -- Set to 1000, so it loads before any other plugin
     config = function()
-      vim.cmd.colorscheme 'aurora' -- Activate color (or its variant) as default for files
+      --vim.cmd.colorscheme 'aurora' -- Activate color (or its variant) as default for files
     end,
     init = function()
       vim.cmd.hi 'Comment gui=none' -- How to make changes to the colorscheme

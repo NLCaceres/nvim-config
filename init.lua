@@ -891,6 +891,8 @@ require('lazy').setup({
   },
 })
 
+vim.cmd.colorscheme 'vangelion'
+
 -- NOTE: This line below is a `modeline`. See `:help modeline` for major details
 -- BUT simply, it sets up basic file options like `ts` for tabstop or `sw` for shiftwidth
 -- `:help 'tabstop'` says this modeline is method 2 to setup tabs, i.e. change 'tabstop',
