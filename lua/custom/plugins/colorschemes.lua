@@ -12,9 +12,10 @@ return {
     'ray-x/aurora',
     priority = 1000, -- Set to 1000, so it loads before any other plugin
     config = function()
-      --vim.cmd.colorscheme 'aurora' -- Activate color (or its variant) as default for files
+      -- vim.cmd.colorscheme 'aurora' -- Activate color (or its variant) as default for files
     end,
     init = function()
+      vim.api.nvim_set_hl(0, '@number', { fg = '#e933e3' }) -- Globally update the scheme
       vim.cmd.hi 'Comment gui=none' -- How to make changes to the colorscheme
     end,
   },
