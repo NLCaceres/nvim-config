@@ -3,7 +3,7 @@ return {
   -- Other interesting colors to consider - Oldworld/Mellow, OneDark
   -- Best to good built colors - retrobox, wildcharm, slate, koehler, sorbet, zaibetsu
   {
-    dir = '~/.config/nvim/lua/my_plugins/vangelion',
+    dir = vim.fn.stdpath 'config' .. '/lua/my_plugins/vangelion',
     name = 'vangelion',
     lazy = false,
     priority = 1000,
