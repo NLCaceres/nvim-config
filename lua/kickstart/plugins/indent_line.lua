@@ -1,9 +1,9 @@
+-- NOTE: Adds vertical indentation lines for easier reading, even on blank lines
+
 return {
-  { -- Add indentation guides even on blank lines
+  {
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
+    main = 'ibl', -- See `:help ibl` for a help guide
     opts = {},
   },
 }
