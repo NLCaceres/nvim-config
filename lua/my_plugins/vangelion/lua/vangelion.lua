@@ -218,6 +218,11 @@ function M.colorscheme()
   vim.cmd.hi 'FloatBorder guifg=#d7d7d7'
   vim.cmd.hi 'LspInlayHint guifg=#75797a'
   vim.cmd.hi 'MsgSeparator guifg=#826e17 guibg=#262626 gui=bold' -- DARK Gray
+
+  -- GitSigns
+  vim.cmd.hi 'GitSignsAdd guifg=#00ff00' -- Bright green
+  vim.cmd.hi 'GitSignsChange guifg=#66ffff' -- Cyan
+  vim.cmd.hi 'GitSignsDelete guifg=#ff0000' -- Red
 end
 
 return M
