@@ -223,6 +223,16 @@ function M.colorscheme()
   vim.cmd.hi 'GitSignsAdd guifg=#00ff00' -- Bright green
   vim.cmd.hi 'GitSignsChange guifg=#66ffff' -- Cyan
   vim.cmd.hi 'GitSignsDelete guifg=#ff0000' -- Red
+
+  -- mini.nvim StatusLine
+  vim.cmd.hi 'MiniStatuslineModeNormal guifg=#000000 guibg=#4d79ff gui=bold' -- Royal Blue
+  vim.cmd.hi 'MiniStatuslineModeInsert guifg=#000000 guibg=#ff4dff gui=bold' -- Pink
+  vim.cmd.hi 'MiniStatuslineModeVisual guifg=#000000 guibg=#8133ff gui=bold' -- Deep Purple
+  vim.cmd.hi 'MiniStatuslineModeReplace guifg=#000000 guibg=#cc0000 gui=bold' -- Mid Red
+  vim.cmd.hi 'MiniStatuslineDevinfo guifg=#000000 guibg=#2a7f62 gui=NONE' -- Blueish green
+  vim.cmd.hi 'MiniStatuslineFilename guifg=#dbbd30 guibg=#262626 gui=bold' -- Y + Gray
+  vim.cmd.hi 'MiniStatuslineFileinfo guifg=#000000 guibg=#f2d0a9 gui=NONE' -- Sand tan
+  vim.cmd.hi 'MiniStatuslineInactive guifg=#826e17 guibg=#262626 gui=bold' -- Dark Y + Gray
 end
 
 return M
