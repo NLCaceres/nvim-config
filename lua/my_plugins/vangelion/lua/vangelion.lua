@@ -197,13 +197,27 @@ function M.colorscheme()
   vim.cmd.hi '@variable.builtin.python guifg=#8bd450'
   vim.cmd.hi 'link @attribute.python Special'
 
-  -- lukas-reineke/indent-blankline -- Currently unused
+  -- lukas-reineke/indent-blankline
   vim.cmd.hi 'IndentBlanklineChar gui=nocombine guifg=#444C55'
   vim.cmd.hi 'IndentBlanklineSpaceChar cterm=nocombine ctermfg=NONE gui=nocombine guifg=#4d5154'
   vim.cmd.hi 'IndentBlanklineContextChar gui=nocombine guifg=#FB5E2A'
   vim.cmd.hi 'IndentBlanklineContextStart gui=underline guisp=#FB5E2A'
   vim.cmd.hi 'IblIndent gui=nocombine guifg=#444C55'
   vim.cmd.hi 'IblScope gui=nocombine guifg=#FB5E2A'
+
+  -- NOTE: My custom additions/changes
+  vim.cmd.hi 'Comment cterm=italic gui=italic guifg=#b9b9ac' -- Darkish Gray
+  vim.cmd.hi 'DiagnosticHint guifg=#f2f2f3' -- Lightish Gray
+  vim.cmd.hi 'CursorLineNr guifg=#6685ff' -- Blueish
+  vim.cmd.hi 'LineNr guifg=#997a00' -- Mustard Yellow
+  vim.cmd.hi 'Identifier guifg=#6666ff' -- Purple-ish Blue
+  vim.cmd.hi 'CurSearch guifg=#262626 guibg=#1B9AAA' -- Purple-ish Blue
+  vim.cmd.hi 'IncSearch guifg=#262626 guibg=#1B9AAA' -- Purple-ish Blue
+  vim.cmd.hi 'Search guifg=#d7d7d7 guibg=#885A89' -- Purple-ish Blue
+  vim.cmd.hi 'Visual guifg=#d9d9d9 guibg=#13315C' -- Purple-ish Blue
+  vim.cmd.hi 'FloatBorder guifg=#d7d7d7'
+  vim.cmd.hi 'LspInlayHint guifg=#75797a'
+  vim.cmd.hi 'MsgSeparator guifg=#826e17 guibg=#262626 gui=bold' -- DARK Gray
 end
 
 return M
