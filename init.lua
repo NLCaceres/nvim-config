@@ -310,6 +310,7 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' }, -- Use Telescope for Vim's UI Select
+      { 'debugloop/telescope-undo.nvim' }, -- Undo tree
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -320,12 +321,14 @@ require('lazy').setup({
       require('telescope').setup { -- For more info see `:help telescope.setup()`
         extensions = {
           ['ui-select'] = { require('telescope.themes').get_dropdown() },
+          undo = {},
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'undo')
 
       -- NOTE: Convenient & Common places for Telescope to search
       local builtin = require 'telescope.builtin' -- See `:help telescope.builtin`
@@ -355,6 +358,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function() -- Lists Neovim config files
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+      vim.keymap.set('n', '<leader>su', '<cmd>Telescope undo<cr>') -- Visual undo-tree
     end,
   },
 
