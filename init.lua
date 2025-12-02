@@ -332,15 +332,30 @@ require('lazy').setup({
 
       -- NOTE: Convenient & Common places for Telescope to search
       local builtin = require 'telescope.builtin' -- See `:help telescope.builtin`
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sn', function() -- Lists Neovim config files
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[S]earch [N]eovim files' })
+      vim.keymap.set('n', '<leader>scs', builtin.colorscheme, { desc = '[S]earch [C]olor[S]cheme' })
+      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+      vim.keymap.set('n', '<leader>su', '<cmd>Telescope undo<cr>') -- Visual undo-tree
+      vim.keymap.set('n', '<leader>sf', function()
+        -- find_files runs `rg --file --color never` if installed OR `find . -type f`
+        -- There are built-in alternatives BUT best to change `find_file` as shown below,
+        -- OR via `find_command` key, e.g. { "rg", "--file", "--color", "never", "--sort", "--smart-case" }
+        builtin.find_files { hidden = true }
+      end, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>sgi', function()
+        builtin.git_status { git_icons = { added = '󱇬', changed = '!=' } }
+      end, { desc = '[S]earch by [GI]t' })
+      vim.keymap.set('n', '<leader>sgr', function()
+        builtin.live_grep { additional_args = { '--hidden', '--sortr=path' } }
+      end, { desc = '[S]earch by [GR]ep' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>/', function() -- Similar to normal "/" keymap
         -- Like `find_files` can add extra config to totally change Telescope presentation
@@ -355,10 +370,6 @@ require('lazy').setup({
           prompt_title = 'Live Grep in Open Files', -- OR can even change default configs
         }
       end, { desc = '[S]earch [/] in Open Files' })
-      vim.keymap.set('n', '<leader>sn', function() -- Lists Neovim config files
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
-      vim.keymap.set('n', '<leader>su', '<cmd>Telescope undo<cr>') -- Visual undo-tree
     end,
   },
 
