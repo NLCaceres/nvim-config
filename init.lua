@@ -319,6 +319,13 @@ require('lazy').setup({
       -- To use it directly, run `:Telescope <tab>`
       -- NOTE: For helpful keymaps when using Telescope: Press ? or <c-/> in insert mode
       require('telescope').setup { -- For more info see `:help telescope.setup()`
+        defaults = { -- Can update the defaults like keymaps in here
+          -- In lua patterns "%" escapes magic chars -- ALSO generic 'lock.yaml$' needed?
+          file_ignore_patterns = { '^%.git/', 'pnpm%-lock%.yaml' },
+          layout_config = {
+            horizontal = { mirror = true, width = 0.9, preview_width = 0.5 },
+          },
+        },
         extensions = {
           ['ui-select'] = { require('telescope.themes').get_dropdown() },
           undo = {},
