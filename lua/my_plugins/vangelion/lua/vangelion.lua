@@ -233,6 +233,17 @@ function M.colorscheme()
   vim.cmd.hi 'MiniStatuslineFilename guifg=#dbbd30 guibg=#262626 gui=bold' -- Y + Gray
   vim.cmd.hi 'MiniStatuslineFileinfo guifg=#000000 guibg=#f2d0a9 gui=NONE' -- Sand tan
   vim.cmd.hi 'MiniStatuslineInactive guifg=#826e17 guibg=#262626 gui=bold' -- Dark Y + Gray
+
+  -- Telescope
+  vim.cmd.hi 'TelescopeBorder guifg=#7cb375' -- Type Green
+  vim.cmd.hi 'TelescopePromptBorder guifg=#7cb375' -- Type Green
+  vim.cmd.hi 'TelescopePromptCounter guifg=#d7d7d7' -- Type Green
+  vim.cmd.hi 'TelescopeResultsDiffAdd guifg=#00ff00' -- Bright green
+  vim.cmd.hi 'TelescopeResultsDiffChange guifg=#66ffff' -- Cyan
+  vim.cmd.hi 'TelescopeResultsDiffDelete guifg=#ff0000'
+  vim.cmd.hi 'TelescopeResultsDiffUntracked guifg=#F8F32B' -- Bright yellow
+  vim.cmd.hi 'TelescopeSelection guifg=#e0c652 guibg=#262626'
+  vim.cmd.hi 'TelescopeSelectionCaret guifg=#000000 guibg=#009933 gui=bold'
 end
 
 return M
