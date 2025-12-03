@@ -393,61 +393,30 @@ require('lazy').setup({
       },
     },
   },
-  {
-    -- Main LSP Configuration
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      -- Mason must be loaded before its dependents so we need to set it up here.
-      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
-      'mason-org/mason-lspconfig.nvim',
+  { -- NOTE: The true heart and soul plugin of LSP Configuration in Neovim
+    'neovim/nvim-lspconfig', -- Auto installs LSPs + linters, formetters, etc to stdpath
+    dependencies = { -- BUT it NEEDS `Mason`, NVim's LSP installation manager
+      -- To check installed LSPs, etc, run `:Mason`, and press `g?` for help inside
+      -- NOTE: `opts = {}` ensures `require('mason').setup({})` is called
+      { 'mason-org/mason.nvim', version = '^1.0.0', opts = {} },
+      { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} }, -- Provides LSP status updates
 
-      -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
+      'saghen/blink.cmp', -- Ensure we have auto-complete from `blink.cmp`
     },
     config = function()
-      -- Brief aside: **What is LSP?**
+      -- NOTE: BUT **WHAT IS A LSP?!** - A Language Server Protocol to help editors "read"
+      -- programming languages. The "server" is a local process that provides definitions,
+      -- references, autocompletions, symbols, and way more to clients/editors
+      -- What about LSP vs TreeSitter? Check `:help lsp-vs-treesitter`
       --
-      -- LSP is an initialism you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-      --  This function gets run when an LSP attaches to a particular buffer.
-      --    That is to say, every time a new file is opened that is associated with
-      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      --    function will be executed to configure the current buffer
-      vim.api.nvim_create_autocmd('LspAttach', {
+      vim.api.nvim_create_autocmd('LspAttach', { -- Run IF a LSP attaches to the filetype
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
+          -- NOTE: LUA IS A PROGRAMMING LANGUAGE - It can easily define small helper funcs
+          -- to prevent repeating oneself, e.g. the following keymapper for the LSPs
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -490,10 +459,10 @@ require('lazy').setup({
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
-          -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
+          -- This func fixes a diff between Neovim Nightly v0.11 and stable v0.10
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
-          ---@param bufnr? integer some lsp support methods only in specific files
+          ---@param bufnr? integer some LSP support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
             if vim.fn.has 'nvim-0.11' == 1 then
@@ -532,10 +501,7 @@ require('lazy').setup({
             })
           end
 
-          -- The following code creates a keymap to toggle inlay hints in your
-          -- code, if the language server you are using supports them
-          --
-          -- This may be unwanted, since they displace some of your code
+          -- Enables inlay hints directly inline w/ code IF the LSP supports it (uncommon)
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
@@ -543,13 +509,9 @@ require('lazy').setup({
           end
         end,
       })
-
-      -- Diagnostic Config
-      -- See :help vim.diagnostic.Opts
-      vim.diagnostic.config {
+      vim.diagnostic.config { -- See :help vim.diagnostic.Opts
         severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = vim.diagnostic.severity.ERROR },
+        float = { border = 'single', source = 'if_many' },
         signs = vim.g.have_nerd_font and {
           text = {
             [vim.diagnostic.severity.ERROR] = '󰅚 ',
