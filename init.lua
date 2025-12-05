@@ -420,10 +420,6 @@ require('lazy').setup({
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          -- Open a documentation popup for the highlighted word - Move away to disappear
-          -- See `:help K` for why this keymap; TLDR: It runs [K]eywordprg command
-          map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
           -- Fuzzy find ALL current document symbols, i.e. vars, funcs, types, etc
           map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
 
@@ -521,6 +517,11 @@ require('lazy').setup({
           end,
         },
       }
+
+      -- `K` now by default opens [K]eywordprg's tooltip - Moving away to disappear
+      -- Also see `:help K` - The following should help style it's popup
+      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 
       -- By default, NVim CAN'T handle everything the LSP supports SO blink.cmp, luasnip,
       -- etc help fill in capabilities and can be added to individual LSP config tables
