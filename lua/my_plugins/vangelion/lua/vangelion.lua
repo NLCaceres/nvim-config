@@ -219,6 +219,11 @@ function M.colorscheme()
   vim.cmd.hi 'LspInlayHint guifg=#75797a'
   vim.cmd.hi 'MsgSeparator guifg=#826e17 guibg=#262626 gui=bold' -- DARK Gray
 
+  -- Blink.cmp
+  vim.cmd.hi 'BlinkCmpMenuBorder guifg=#d7d7d7'
+  vim.cmd.hi 'BlinkCmpSignatureHelpBorder guifg=#d7d7d7'
+  vim.cmd.hi 'BlinkCmpDocBorder guifg=#d7d7d7'
+
   -- GitSigns
   vim.cmd.hi 'GitSignsAdd guifg=#00ff00' -- Bright green
   vim.cmd.hi 'GitSignsChange guifg=#66ffff' -- Cyan
