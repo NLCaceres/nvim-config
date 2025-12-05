@@ -687,30 +687,37 @@ require('lazy').setup({
     },
   },
 
-  { -- Highlight, edit, and navigate code
+  -- NOTE: Treesitter analyzes shape of code to help navigate, edit & highlight code by
+  -- analyzing the shape, identifying basic, common building blocks like func declarations,
+  -- var types, etc while a LSP would specifically analyze a language's semantics/syntax
+  -- Treesitter, therefore, is instrumental for linters, plugins like `mini.ai` to make
+  { -- `yinq` as a motion, or colorschemes to highlight a particular code block pattern
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+      },
+      auto_install = true, -- Auto-install languages
       highlight = {
         enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        -- Some langs have indent issues because they need Vim's Regex highlighting system
+        additional_vim_regex_highlighting = { 'ruby' }, -- like Ruby!
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    -- Treesitter has more modules that leverage its tree to add cool features, namely
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
