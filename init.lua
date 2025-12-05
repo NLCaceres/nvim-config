@@ -380,10 +380,8 @@ require('lazy').setup({
     end,
   },
 
-  -- LSP Plugins
-  {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
+  -- NOTE: LSP Plugins
+  { -- `lazydev` configs Lua LSP to analyze the Neovim config dir & resolve the NVim APIs
     'folke/lazydev.nvim',
     ft = 'lua',
     opts = {
@@ -585,7 +583,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- Autoformat
+  { -- NOTE: Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
@@ -624,7 +622,7 @@ require('lazy').setup({
     },
   },
 
-  { -- Autocompletion
+  { -- NOTE: Autocompletion suggestions
     'saghen/blink.cmp',
     event = 'VimEnter',
     version = '1.*',
