@@ -720,16 +720,8 @@ require('lazy').setup({
     -- Treesitter has more modules that leverage its tree to add cool features, namely
   },
 
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug',
+  -- NOTE: Can also add more plugins by `require`-ing its spec. Uncomment and check it out!
+  -- require 'kickstart.plugins.debug', -- All of these are good recommendations!
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.autopairs',
@@ -738,15 +730,13 @@ require('lazy').setup({
   require 'kickstart.plugins.mini-nvim',
   require 'kickstart.plugins.todo-comments',
 
-  -- NOTE: Add my own configurable plugins like this!
-  { import = 'custom.plugins' },
-  -- NOTE: For more info on loading & sourcing plugins see `:help lazy.nvim-plugin-spec`
-  -- OR use telescope via `<space>sh` entering `lazy.nvim-plugin`
-  -- Re-do your last search in telescope via `<space>sr`
+  -- NOTE: OR add plugins via `{ import = 'some.dir.file' }` or `{ import = 'some.dir' }`
+  -- which grabs all lua files in the directory AND loads all plugins listed in each file
+  { import = 'custom.plugins' }, -- Directory version
+  -- { import 'custom.plugins.init'} -- File version containing table-list of plugin specs
 }, {
   ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    -- If using NerdFont, use its icons via empty table, otherwise use this Unicode table
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',
       config = '🛠',
