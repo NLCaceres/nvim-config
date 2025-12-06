@@ -519,20 +519,19 @@ require('lazy').setup({
       --   settings (table): Override LSP defaults on startup
       --     Check https://luals.github.io/wiki/settings for `lua_ls` example
       --     OR https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-      local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
-        -- ts_ls = { -- BUT asking Mason for the LSP is plenty
-        -- }
-
-        lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
+      local servers = { -- OR search `:help lspconfig-all` for list of LSP pre-set configs
+        gopls = { -- For Go, it shows `cmd = { "gopls" }`, `filetypes = { "go"... }`, etc
+          settings = {
+            gopls = {
+              completeUnimported = true,
+              usePlaceholders = true,
+              analyses = {
+                unusedParams = true,
+              },
+            },
+          },
+        },
+        lua_ls = { -- For Lua, it has `cmd`, `filetypes` & `root_markers = {".luarc.json"}`
           -- capabilities = {},
           settings = {
             Lua = {
@@ -544,6 +543,13 @@ require('lazy').setup({
             },
           },
         },
+        -- pyright = {},
+        -- rust_analyzer = {},
+        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+        --
+        -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
+        -- ts_ls = { -- BUT asking Mason for the LSP is plenty
+        -- }
       }
 
       -- Add in Mason's other available tools to NVim -- linters, formatters & debuggers
