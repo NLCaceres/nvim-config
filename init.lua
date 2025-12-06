@@ -593,6 +593,7 @@ require('lazy').setup({
       notify_on_error = false,
       formatters_by_ft = { -- By Filetype
         lua = { 'stylua' },
+        go = { 'gofmt' }, -- `gopls` includes `gofmt` BUT `gofumpt` is stricter alt option
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -690,6 +691,7 @@ require('lazy').setup({
         'bash',
         'c',
         'diff',
+        'go',
         'html',
         'lua',
         'luadoc',
