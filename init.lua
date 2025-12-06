@@ -544,12 +544,14 @@ require('lazy').setup({
           },
         },
         -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
         -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
-        -- ts_ls = { -- BUT asking Mason for the LSP is plenty
-        -- }
+        ts_ls = { -- BUT getting the LSP from Mason is usually enough
+          -- init_options = {}
+          filetypes = {
+            'javascript',
+            'typescript',
+          },
+        }, -- `eslint-lsp` & `ts_ls` are extra unique by being VSCode's extracted LSPs
       }
 
       -- Add in Mason's other available tools to NVim -- linters, formatters & debuggers
@@ -693,11 +695,13 @@ require('lazy').setup({
         'diff',
         'go',
         'html',
+        'javascript',
         'lua',
         'luadoc',
         'markdown',
         'markdown_inline',
         'query',
+        'typescript',
         'vim',
         'vimdoc',
       },
