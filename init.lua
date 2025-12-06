@@ -558,6 +558,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, { -- Add this list/table to `ensure_installed`
         'stylua', -- Used to format Lua code
+        'prettierd', -- Daemon version of fast but opinionated Prettier
+        'eslint_d', -- Fastest way to use `ESLint` (over `eslint-lsp`)
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -594,13 +596,13 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       formatters_by_ft = { -- By Filetype
-        lua = { 'stylua' },
         go = { 'gofmt' }, -- `gopls` includes `gofmt` BUT `gofumpt` is stricter alt option
+        lua = { 'stylua' },
+        -- Can use a sub-list to try each until one is found OR `stop_after_first` opt
+        javascript = { 'prettierd' }, -- {{ 'prettierd', 'eslint_d' }}
+        typescript = { 'eslint_d' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
       format_on_save = function(bufnr) -- Conform CAN fallback to a LSP formatter if needed
         -- Add langs to ensure ALWAYS formatted by formatter and NEVER by the LSP
