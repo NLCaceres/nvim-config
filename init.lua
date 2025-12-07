@@ -521,7 +521,7 @@ require('lazy').setup({
       --     OR https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
       local servers = { -- OR search `:help lspconfig-all` for list of LSP pre-set configs
         gopls = { -- For Go, it shows `cmd = { "gopls" }`, `filetypes = { "go"... }`, etc
-          settings = {
+          settings = { -- Oddly (but not uncommonly) a `gopls` key is nested `settings`
             gopls = {
               completeUnimported = true,
               usePlaceholders = true,
@@ -543,7 +543,26 @@ require('lazy').setup({
             },
           },
         },
-        -- pyright = {},
+        -- Some LSPs even iterate on others - `pyright` to `basedpyright`
+        basedpyright = { -- Though there is `pylsp` as a total alternative
+          settings = {
+            basedpyright = {
+              --typeCheckingMode = 'standard', -- 'recommended' default BUT lots of errs
+              disableOrganizeImports = true,
+              analysis = {
+                inlayHints = {
+                  variableTypes = true,
+                  callArgumentNames = false,
+                  functionReturnTypes = true,
+                },
+                -- Probably put `reportX` type config overriden rules here
+              },
+              -- analysis = {
+              --   ignore = { '*' },
+              -- },
+            }, -- Can set specific 'venv' folder BUT best done via local pyproject.toml
+          }, -- Though defaults to '.venv' folder in root IF activated in the terminal
+        },
         -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
         ts_ls = { -- BUT getting the LSP from Mason is usually enough
           -- init_options = {}
@@ -702,6 +721,7 @@ require('lazy').setup({
         'luadoc',
         'markdown',
         'markdown_inline',
+        'python',
         'query',
         'typescript',
         'vim',
