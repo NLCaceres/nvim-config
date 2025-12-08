@@ -628,7 +628,7 @@ require('lazy').setup({
       },
       format_on_save = function(bufnr) -- Conform CAN fallback to a LSP formatter if needed
         -- Add langs to ensure ALWAYS formatted by formatter and NEVER by the LSP
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, python = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
