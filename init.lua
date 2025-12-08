@@ -202,6 +202,33 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+-- Setup how tabs look, usually 2 whitespaces, BUT another method is a `ftplugin` folder
+-- Ex: `nvim/ftplugin/go.lua`, adding the `bo` option. See `:h ftplugin`
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Apply consistent and space-efficient tab spacing',
+  callback = function(args)
+    local tabSpaceTable = {
+      [2] = { 'go', 'lua', 'javascript', 'typescript' },
+      [4] = { 'python' },
+    }
+    for i, v in pairs(tabSpaceTable) do
+      for _, lang in ipairs(v) do
+        if args.match == lang then
+          vim.bo.tabstop = i
+          vim.bo.softtabstop = i
+          vim.bo.shiftwidth = i
+          vim.bo.expandtab = true
+          return
+        else -- Reset to their defaults
+          vim.bo.tabstop = 8
+          vim.bo.softtabstop = 0
+          vim.bo.shiftwidth = 8
+          vim.bo.expandtab = false
+        end
+      end
+    end
+  end,
+})
 
 -- NOTE: Install `lazy.nvim` plugin manager - See `:help lazy.nvim.txt` or `github.com/folke/lazy.nvim`
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
