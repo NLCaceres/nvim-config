@@ -601,6 +601,7 @@ require('lazy').setup({
           }, -- Though defaults to '.venv' folder in root IF activated in the terminal
         },
         ruff = { settings = {} },
+        ruby_lsp = {},
         -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
         ts_ls = { -- BUT getting the LSP from Mason is usually enough
           -- init_options = {}
@@ -617,6 +618,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'prettierd', -- Daemon version of fast but opinionated Prettier
         'eslint_d', -- Fastest way to use `ESLint` (over `eslint-lsp`)
+        'rubocop',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -660,8 +662,7 @@ require('lazy').setup({
         -- Can use a sub-list to try each until one is found OR `stop_after_first` opt
         javascript = { 'prettierd' }, -- {{ 'prettierd', 'eslint_d' }}
         typescript = { 'eslint_d' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        ruby = { 'rubocop' },
       },
       format_on_save = function(bufnr) -- Conform CAN fallback to a LSP formatter if needed
         -- Add langs to ensure ALWAYS formatted by formatter and NEVER by the LSP
