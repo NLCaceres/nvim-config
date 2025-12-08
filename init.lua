@@ -389,6 +389,16 @@ require('lazy').setup({
           prompt_title = 'Live Grep in Open Files', -- OR can even change default configs
         }
       end, { desc = '[S]earch [/] in Open Files' })
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'TelescopePreviewerLoaded',
+        callback = function(args) -- Missing helpful `args.data`
+          vim.bo.tabstop = 2
+          vim.bo.softtabstop = 2
+          vim.bo.shiftwidth = 2
+          vim.expandtab = true
+        end,
+      })
     end,
   },
 
