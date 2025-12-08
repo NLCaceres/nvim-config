@@ -563,6 +563,7 @@ require('lazy').setup({
             }, -- Can set specific 'venv' folder BUT best done via local pyproject.toml
           }, -- Though defaults to '.venv' folder in root IF activated in the terminal
         },
+        ruff = { settings = {} },
         -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
         ts_ls = { -- BUT getting the LSP from Mason is usually enough
           -- init_options = {}
@@ -617,6 +618,8 @@ require('lazy').setup({
       formatters_by_ft = { -- By Filetype
         go = { 'gofmt' }, -- `gopls` includes `gofmt` BUT `gofumpt` is stricter alt option
         lua = { 'stylua' },
+        -- There's also `ruff_format` BUT it usually overrides its linter for some reason
+        python = { 'ruff_fix', 'ruff_organize_imports' }, -- Runs sequentially
         -- Can use a sub-list to try each until one is found OR `stop_after_first` opt
         javascript = { 'prettierd' }, -- {{ 'prettierd', 'eslint_d' }}
         typescript = { 'eslint_d' },
