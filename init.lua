@@ -208,7 +208,7 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
     local tabSpaceTable = {
-      [2] = { 'go', 'templ', 'lua', 'javascript', 'typescript', 'html', 'css' },
+      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'typescript', 'html', 'css' },
       [4] = { 'python' },
     }
     for i, v in pairs(tabSpaceTable) do
@@ -569,6 +569,7 @@ require('lazy').setup({
           },
         },
         templ = {},
+
         lua_ls = { -- For Lua, it has `cmd`, `filetypes` & `root_markers = {".luarc.json"}`
           -- capabilities = {},
           settings = {
@@ -581,6 +582,27 @@ require('lazy').setup({
             },
           },
         },
+
+        jdtls = { -- INFO: Java LSP settings
+          settings = {
+            java = {
+              configuration = {
+                runtimes = { -- May need `vim.env.HOME` prefix for paths
+                  {
+                    name = 'Jetbrains-Runtime-21',
+                    path = '/Applications/Android Studio.app/Contents/jbr/Contents/Home',
+                    default = true,
+                  },
+                  { -- Seems to automatically latch onto this JRE for some reason
+                    name = 'Jetbrains-Virtual-Machine-17',
+                    path = '/Library/Java/JavaVirtualMachines/jbrsdk-17.0.9-3/Contents/Home',
+                  },
+                },
+              },
+            },
+          },
+        },
+
         -- Some LSPs even iterate on others - `pyright` to `basedpyright`
         basedpyright = { -- Though there is `pylsp` as a total alternative
           settings = {
@@ -602,7 +624,9 @@ require('lazy').setup({
           }, -- Though defaults to '.venv' folder in root IF activated in the terminal
         },
         ruff = { settings = {} },
+
         ruby_lsp = {},
+
         -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
         ts_ls = { -- BUT getting the LSP from Mason is usually enough
           -- init_options = {}
@@ -765,6 +789,7 @@ require('lazy').setup({
         'c',
         'diff',
         'go',
+        'java',
         'html',
         'javascript',
         'lua',
