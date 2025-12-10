@@ -608,8 +608,15 @@ require('lazy').setup({
           filetypes = {
             'javascript',
             'typescript',
+            'html',
           },
         }, -- `eslint-lsp` & `ts_ls` are extra unique by being VSCode's extracted LSPs
+        cssls = {},
+        html = { -- Provides formatter too AND works with `templ`
+          -- settings = {
+          --   html = { format = { preserveNewLines = true } },
+          -- },
+        },
       }
 
       -- Add in Mason's other available tools to NVim -- linters, formatters & debuggers
