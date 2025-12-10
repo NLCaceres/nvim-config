@@ -568,6 +568,7 @@ require('lazy').setup({
             },
           },
         },
+        templ = {},
         lua_ls = { -- For Lua, it has `cmd`, `filetypes` & `root_markers = {".luarc.json"}`
           -- capabilities = {},
           settings = {
@@ -663,6 +664,7 @@ require('lazy').setup({
       notify_on_error = false,
       formatters_by_ft = { -- By Filetype
         go = { 'gofmt' }, -- `gopls` includes `gofmt` BUT `gofumpt` is stricter alt option
+        templ = { 'gofmt' },
         lua = { 'stylua' },
         -- There's also `ruff_format` BUT it usually overrides its linter for some reason
         python = { 'ruff_fix', 'ruff_organize_imports' }, -- Runs sequentially
