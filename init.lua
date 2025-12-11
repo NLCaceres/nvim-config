@@ -599,6 +599,11 @@ require('lazy').setup({
                   },
                 },
               },
+              format = {
+                settings = {
+                  url = vim.fn.stdpath 'config' .. '/lua/custom/formatters/java.xml',
+                },
+              },
             },
           },
         },
