@@ -422,6 +422,13 @@ require('lazy').setup({
       { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
+      {
+        'nvim-java/nvim-java',
+        config = function()
+          require('java').setup { jdk = { auto_install = false } }
+        end,
+      },
+
       { 'j-hui/fidget.nvim', opts = {} }, -- Provides LSP status updates
 
       'saghen/blink.cmp', -- Ensure we have auto-complete from `blink.cmp`
