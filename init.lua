@@ -825,7 +825,7 @@ require('lazy').setup({
   },
 
   -- NOTE: Can also add more plugins by `require`-ing its spec. Uncomment and check it out!
-  -- require 'kickstart.plugins.debug', -- All of these are good recommendations!
+  require 'kickstart.plugins.debug', -- All of these are good recommendations!
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.autopairs',
