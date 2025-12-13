@@ -197,6 +197,14 @@ function M.colorscheme()
   vim.cmd.hi '@variable.builtin.python guifg=#8bd450'
   vim.cmd.hi 'link @attribute.python Special'
 
+  -- Nvim DAP Debugging UI colors
+  vim.cmd.hi 'DapUIDecoration guifg=#c200fb'
+  vim.cmd.hi 'DapUIValue guifg=#73628a'
+  vim.cmd.hi 'DapUIModifiedValue guifg=#bdb2ff'
+  vim.cmd.hi 'DapUIScope guifg=#ccff33'
+  vim.cmd.hi 'DapUIStoppedThread guifg=#ccff33'
+  vim.cmd.hi 'DapUIBreakpointsPath guifg=#d484ff'
+
   -- lukas-reineke/indent-blankline
   vim.cmd.hi 'IndentBlanklineChar gui=nocombine guifg=#444C55'
   vim.cmd.hi 'IndentBlanklineSpaceChar cterm=nocombine ctermfg=NONE gui=nocombine guifg=#4d5154'
