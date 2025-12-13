@@ -257,6 +257,9 @@ function M.colorscheme()
   vim.cmd.hi 'TelescopeResultsDiffUntracked guifg=#F8F32B' -- Bright yellow
   vim.cmd.hi 'TelescopeSelection guifg=#e0c652 guibg=#262626'
   vim.cmd.hi 'TelescopeSelectionCaret guifg=#000000 guibg=#009933 gui=bold'
+
+  -- My custom Treesitter tokens
+  vim.cmd.hi 'link @lsp.type.modifier.java Keyword'
 end
 
 return M
