@@ -422,13 +422,7 @@ require('lazy').setup({
       { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      {
-        'nvim-java/nvim-java',
-        config = function()
-          require('java').setup { jdk = { auto_install = false } }
-        end,
-      },
-
+      'nvim-java/nvim-java',
       { 'j-hui/fidget.nvim', opts = {} }, -- Provides LSP status updates
 
       'saghen/blink.cmp', -- Ensure we have auto-complete from `blink.cmp`
@@ -594,15 +588,15 @@ require('lazy').setup({
           settings = {
             java = {
               configuration = {
-                runtimes = { -- May need `vim.env.HOME` prefix for paths
-                  {
+                runtimes = {
+                  { -- MUST set `export JAVA_HOME=<jbr-path>` in `.zshrc` to help JDTLS
                     name = 'Jetbrains-Runtime-21',
                     path = '/Applications/Android Studio.app/Contents/jbr/Contents/Home',
                     default = true,
                   },
-                  { -- Seems to automatically latch onto this JRE for some reason
+                  {
                     name = 'Jetbrains-Virtual-Machine-17',
-                    path = '/Library/Java/JavaVirtualMachines/jbrsdk-17.0.9-3/Contents/Home',
+                    path = vim.env.HOME .. '/Library/Java/JavaVirtualMachines/jbrsdk-17.0.9-3/Contents/Home',
                   },
                 },
               },
@@ -673,9 +667,14 @@ require('lazy').setup({
         handlers = { -- Each lang can get its own, e.g. `jdtls = funct`
           function(server_name) -- OR can use a default func that runs for all languages
             local server = servers[server_name] or {}
+            if server_name == 'jdtls' then -- With a check to add setup for a certain
+              require('java').setup { jdk = { auto_install = false } } -- lang like Java
+              vim.lsp.enable(server_name)
+            else
+              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+              require('lspconfig')[server_name].setup(server)
+            end
             -- Can overwrite or even disable LSP capability config by merging my options
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
           end,
         },
       }
