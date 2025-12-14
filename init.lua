@@ -208,7 +208,7 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
     local tabSpaceTable = {
-      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'typescript', 'html', 'css' },
+      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'typescript', 'html', 'css', 'yaml' },
       [4] = { 'python' },
     }
     for i, v in pairs(tabSpaceTable) do
@@ -621,6 +621,12 @@ require('lazy').setup({
           -- settings = {
           --   html = { format = { preserveNewLines = true } },
           -- },
+        },
+
+        yamlls = {
+          settings = { yaml = {
+            customTags = { '!merge sequence', '!override sequence', '!reset sequence' },
+          } },
         },
       }
 
