@@ -208,7 +208,7 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
     local tabSpaceTable = {
-      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'typescript', 'html', 'css', 'yaml' },
+      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'yaml' },
       [4] = { 'python' },
     }
     for i, v in pairs(tabSpaceTable) do
@@ -612,8 +612,12 @@ require('lazy').setup({
           -- init_options = {}
           filetypes = {
             'javascript',
-            'typescript',
+            'javascriptreact',
+            'javascript.jsx',
             'html',
+            'typescript',
+            'typescriptreact',
+            'typescript.jsx',
           },
         }, -- `eslint-lsp` & `ts_ls` are extra unique by being VSCode's extracted LSPs
         cssls = {},
@@ -715,7 +719,9 @@ require('lazy').setup({
         python = { 'ruff_fix', 'ruff_organize_imports' }, -- Runs sequentially
         -- Can use a sub-list to try each until one is found OR `stop_after_first` opt
         javascript = { 'prettierd' }, -- {{ 'prettierd', 'eslint_d' }}
+        javascriptreact = { 'eslint_d' },
         typescript = { 'eslint_d' },
+        typescriptreact = { 'eslint_d' },
         ruby = { 'rubocop' },
       },
       format_on_save = function(bufnr) -- Conform CAN fallback to a LSP formatter if needed
