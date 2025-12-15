@@ -626,6 +626,38 @@ require('lazy').setup({
           --   html = { format = { preserveNewLines = true } },
           -- },
         },
+        emmet_language_server = {
+          filetypes = {
+            'css',
+            'eruby',
+            'html',
+            'htmlangular',
+            'htmldjango',
+            'javascript',
+            'javascriptreact',
+            'less',
+            'sass',
+            'scss',
+            'pug',
+            'typescriptreact',
+            'templ',
+            'vue',
+          },
+          -- Opts from https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration
+          -- OR https://docs.emmet.io - specifically in /customization/preferences
+          -- AND /customization/syntax-profiles/ AND /customization/snippets/#variables
+          init_options = { -- No other options are supported
+            includeLanguages = {}, ---@type table<string, string>
+            excludeLanguages = {}, --- @type string[]
+            extensionsPath = {}, --- @type string[]
+            preferences = {}, --- @type table<string, any>
+            showAbbreviationSuggestions = true, --- @type boolean Defaults to `true`
+            showExpandedAbbreviation = 'always', --- @type "always" | "never"
+            showSuggestionsAsSnippets = false, --- @type boolean
+            syntaxProfiles = {}, --- @type table<string, any>
+            variables = {}, --- @type table<string, string>
+          },
+        },
 
         yamlls = {
           settings = { yaml = {
