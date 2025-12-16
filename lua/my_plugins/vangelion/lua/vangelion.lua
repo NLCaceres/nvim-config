@@ -260,6 +260,7 @@ function M.colorscheme()
 
   -- My custom Treesitter tokens
   vim.cmd.hi 'link @lsp.type.modifier.java Keyword'
+  vim.cmd.hi '@string.special.templ guifg=#f2d0a9'
 end
 
 return M
