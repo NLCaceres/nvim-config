@@ -208,7 +208,7 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
     local tabSpaceTable = {
-      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'yaml' },
+      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'svelte', 'yaml' },
       [4] = { 'python' },
     }
     for i, v in pairs(tabSpaceTable) do
@@ -615,6 +615,7 @@ require('lazy').setup({
             'javascriptreact',
             'javascript.jsx',
             'html',
+            'svelte',
             'typescript',
             'typescriptreact',
             'typescript.jsx',
@@ -640,6 +641,7 @@ require('lazy').setup({
             'scss',
             'pug',
             'typescriptreact',
+            'svelte',
             'templ',
             'vue',
           },
@@ -754,6 +756,7 @@ require('lazy').setup({
         javascriptreact = { 'eslint_d' },
         typescript = { 'eslint_d' },
         typescriptreact = { 'eslint_d' },
+        svelte = { 'eslint_d' },
         ruby = { 'rubocop' },
       },
       format_on_save = function(bufnr) -- Conform CAN fallback to a LSP formatter if needed
