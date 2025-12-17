@@ -583,25 +583,11 @@ require('lazy').setup({
           },
         },
 
-        -- Some LSPs even iterate on others - `pyright` to `basedpyright`
-        basedpyright = { -- Though there is `pylsp` as a total alternative
-          settings = {
-            basedpyright = {
-              --typeCheckingMode = 'standard', -- 'recommended' default BUT lots of errs
-              disableOrganizeImports = true,
-              analysis = {
-                inlayHints = {
-                  variableTypes = true,
-                  callArgumentNames = false,
-                  functionReturnTypes = true,
-                },
-                -- Probably put `reportX` type config overriden rules here
-              },
-              -- analysis = {
-              --   ignore = { '*' },
-              -- },
-            }, -- Can set specific 'venv' folder BUT best done via local pyproject.toml
-          }, -- Though defaults to '.venv' folder in root IF activated in the terminal
+        ty = {
+          settings = { ty = {} },
+          -- cmd = { 'ty', 'server' },
+          -- filetypes = { 'python' },
+          -- root_markers = { 'ty.toml', 'pyproject.toml', '.git' },
         },
         ruff = { settings = {} },
 
@@ -685,9 +671,14 @@ require('lazy').setup({
         handlers = { -- Each lang can get its own, e.g. `ts_ls = funct`
           function(server_name) -- OR can use a default func that runs for all languages
             local server = servers[server_name] or {}
-            -- Can overwrite or even disable LSP capability config by merging my options
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            if server_name == 'ty' then
+              vim.lsp.config('ty', server)
+              vim.lsp.enable 'ty'
+            else
+              -- Can overwrite or even disable LSP capability config by merging my options
+              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+              require('lspconfig')[server_name].setup(server)
+            end
           end,
         },
       }
