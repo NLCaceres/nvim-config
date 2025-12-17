@@ -207,6 +207,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
+    if args.match == 'python' then
+      vim.lsp.start { name = 'ty', cmd = { 'ty', 'server' }, root_dir = vim.fs.root(0, { '.git/', 'pyproject.toml' }) }
+    end
     local tabSpaceTable = {
       [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'svelte', 'yaml' },
       [4] = { 'python' },
@@ -586,6 +589,7 @@ require('lazy').setup({
         ty = {
           settings = { ty = {} },
           -- cmd = { 'ty', 'server' },
+          -- root_dir = vim.fs.root(0, { '.git/', 'pyproject.toml', 'ty.toml' }),
           -- filetypes = { 'python' },
           -- root_markers = { 'ty.toml', 'pyproject.toml', '.git' },
         },
