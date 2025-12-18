@@ -184,6 +184,9 @@ vim.keymap.set('n', '<leader>tn', function()
 end, { desc = 'Save and open [N]etRW' })
 
 -- Diagnostic keymaps
+vim.keymap.set('n', '<leader>td', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = 'Toggle [d]iagnostics' })
 vim.keymap.set('n', '[d', function()
   vim.diagnostic.jump { count = -1, float = true }
 end, { desc = 'Go to previous [D]iagnostic message' })
