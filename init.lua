@@ -111,6 +111,7 @@ vim.schedule(function()
 end)
 
 vim.o.breakindent = true -- Wrapped lines keep the same indent level
+vim.o.wrap = false
 
 vim.o.undofile = true -- Keep a long undo history
 
@@ -183,8 +184,12 @@ vim.keymap.set('n', '<leader>tn', function()
 end, { desc = 'Save and open [N]etRW' })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -193,13 +198,22 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- NOTE: Autocommands - See `:help lua-guide-autocommands`
-
--- Highlight on yank (copying) text - See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+vim.api.nvim_create_autocmd('BufReadPost', {
+  desc = 'Restore cursor position on file open',
+  group = vim.api.nvim_create_augroup('kickstart-restore-cursor', { clear = true }),
+  pattern = '*',
+  callback = function()
+    local line = vim.fn.line '\'"'
+    if line > 1 and line <= vim.fn.line '$' then
+      vim.cmd 'normal! g\'"'
+    end
   end,
 })
 -- Setup how tabs look, usually 2 whitespaces, BUT another method is a `ftplugin` folder
