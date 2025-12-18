@@ -254,7 +254,7 @@ rtp:prepend(lazypath) -- Using a colon to call a func, inserts self a la `python
 -- INSTALL PLUGINS IN THIS SETUP FUNC
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { 'NMAC427/guess-indent.nvim', opts = {} }, -- Detect tabstop & shiftwidth automatically
 
   -- NOTE: Plugins can also be added via table, {}, listing the name first,
   -- and then other config options to change behavior, loading, etc
