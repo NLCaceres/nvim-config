@@ -320,6 +320,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
     },
   },
@@ -460,13 +461,13 @@ require('lazy').setup({
           end
 
           -- Fuzzy find ALL current document symbols, i.e. vars, funcs, types, etc
-          map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+          map('gro', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
 
           -- Fuzzy find ALL of your workspace symbols, i.e. recursively check ALL files
-          map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
+          map('grw', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 
           -- Jump to where the highlighted word was first defined - Jump back via `<C-t>`
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- GO TO DECLARATION, NOT DEFINITION, i.e. a C-header file
           map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
