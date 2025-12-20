@@ -224,9 +224,6 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
-    -- if args.match == 'python' then
-    --   vim.lsp.start { name = 'ty', cmd = { 'ty', 'server' }, root_dir = vim.fs.root(0, { '.git/', 'pyproject.toml' }) }
-    -- end
     local tabSpaceTable = {
       [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'svelte', 'yaml' },
       [4] = { 'python' },
@@ -439,8 +436,8 @@ require('lazy').setup({
     dependencies = { -- BUT it NEEDS `Mason`, NVim's LSP installation manager
       -- To check installed LSPs, etc, run `:Mason`, and press `g?` for help inside
       -- NOTE: `opts = {}` ensures `require('mason').setup({})` is called
-      { 'mason-org/mason.nvim', version = '^1.0.0', opts = {} },
-      { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       { 'j-hui/fidget.nvim', opts = {} }, -- Provides LSP status updates
