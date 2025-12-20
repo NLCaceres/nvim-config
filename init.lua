@@ -224,9 +224,9 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
-    if args.match == 'python' then
-      vim.lsp.start { name = 'ty', cmd = { 'ty', 'server' }, root_dir = vim.fs.root(0, { '.git/', 'pyproject.toml' }) }
-    end
+    -- if args.match == 'python' then
+    --   vim.lsp.start { name = 'ty', cmd = { 'ty', 'server' }, root_dir = vim.fs.root(0, { '.git/', 'pyproject.toml' }) }
+    -- end
     local tabSpaceTable = {
       [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'svelte', 'yaml' },
       [4] = { 'python' },
@@ -544,10 +544,6 @@ require('lazy').setup({
       vim.lsp.buf.hover { border = 'rounded' }
       vim.lsp.buf.signature_help { border = 'rounded' }
 
-      -- By default, NVim CAN'T handle everything the LSP supports SO blink.cmp, luasnip,
-      -- etc help fill in capabilities and can be added to individual LSP config tables
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
       -- Add/Remove LSPs here to install, enable and config them, usually by these opts:
       --   cmd (table): Override start command
       --   filetypes (table): Override filetypes LSP should attach
@@ -664,23 +660,14 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      for server, config in pairs(servers) do
+        vim.lsp.config(server, config)
+      end
+
       -- NOTE: LSPs added to `server` table list get auto-installed here
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- Empty so `mason-tool-installer` can fill it
-        automatic_installation = false,
-        handlers = { -- Each lang can get its own, e.g. `ts_ls = funct`
-          function(server_name) -- OR can use a default func that runs for all languages
-            local server = servers[server_name] or {}
-            if server_name == 'ty' then
-              vim.lsp.config('ty', server)
-              vim.lsp.enable 'ty'
-            else
-              -- Can overwrite or even disable LSP capability config by merging my options
-              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-              require('lspconfig')[server_name].setup(server)
-            end
-          end,
-        },
+        ensure_installed = {}, -- Empty (the default) so `mason-tool-installer` can fill it
+        automatic_enable = true,
       }
     end,
   },
