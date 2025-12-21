@@ -562,18 +562,7 @@ require('lazy').setup({
         },
         templ = {},
 
-        lua_ls = { -- For Lua, it has `cmd`, `filetypes` & `root_markers = {".luarc.json"}`
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
+        emmylua_ls = {}, -- Faster Rust `lua_ls` BUT starts odd UNTIL any edits made
 
         ty = {
           settings = { ty = {} },
