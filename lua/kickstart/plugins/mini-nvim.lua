@@ -32,7 +32,8 @@ return {
         highlighters = {
           -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
           -- fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-          commentWarn = { pattern = '--!', group = 'MiniHipatternsHack' },
+          commentWarn = { pattern = '//!', group = 'MiniHipatternsHack' },
+          luaCommentWarn = { pattern = '%-%-!', group = 'MiniHipatternsHack' },
 
           hex_color = hipatterns.gen_highlighter.hex_color(), -- Colors all hex strings
         },
