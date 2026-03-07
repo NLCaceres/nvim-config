@@ -582,7 +582,6 @@ require('lazy').setup({
             'javascript',
             'javascriptreact',
             'javascript.jsx',
-            'html',
             'svelte',
             'typescript',
             'typescriptreact',
