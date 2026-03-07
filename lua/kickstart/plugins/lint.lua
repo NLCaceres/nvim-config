@@ -13,7 +13,7 @@ return {
       javascriptreact = { 'eslint_d' },
       typescriptreact = { 'eslint_d' },
       svelte = { 'eslint_d' },
-      ruby = { 'rubocop' }, -- jsonlint for json and vale for markdown and txt
+      -- Add `vale` for markdown and txt?
     } -- AND NOT the following which enables 10 linters from clojure to text files
     -- lint.linters_by_ft = lint.linters_by_ft or {}
     -- lint.linters_by_ft['markdown'] = { 'markdownlint' }

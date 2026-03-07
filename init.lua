@@ -646,7 +646,6 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'prettierd', -- Daemon version of fast but opinionated Prettier
         'eslint_d', -- Fastest way to use `ESLint` (over `eslint-lsp`)
-        'rubocop',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -725,7 +724,7 @@ require('lazy').setup({
         typescript = { 'eslint_d' },
         typescriptreact = { 'eslint_d' },
         svelte = { 'eslint_d' },
-        ruby = { 'rubocop' },
+        ruby = { 'ruby_lsp' },
       },
       format_on_save = function(bufnr) -- Conform CAN fallback to a LSP formatter if needed
         -- Add langs to ensure ALWAYS formatted by formatter and NEVER by the LSP
