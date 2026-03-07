@@ -573,7 +573,15 @@ require('lazy').setup({
         },
         ruff = { settings = {} },
 
-        ruby_lsp = {},
+        ruby_lsp = {
+          init_options = {
+            addonSettings = {
+              ['Ruby LSP Rails'] = {
+                enablePendingMigrationsPrompt = false,
+              },
+            },
+          },
+        },
 
         -- Some languages like TS get FULL-ON plugins (Pmizio's Typescript-Tools)
         ts_ls = { -- BUT getting the LSP from Mason is usually enough
