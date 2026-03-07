@@ -140,7 +140,7 @@ vim.o.inccommand = 'split' -- Preview substitutions live while typing
 
 vim.o.cursorline = true
 
-vim.o.scrolloff = 10 -- Min num of lines on screen above & below your cursor
+vim.o.scrolloff = 5 -- Min num of lines on screen above & below your cursor
 
 -- NOTE: Keymaps - See `:help vim.keymap.set()`
 
