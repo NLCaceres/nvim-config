@@ -225,7 +225,7 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Apply consistent and space-efficient tab spacing',
   callback = function(args)
     local tabSpaceTable = {
-      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'svelte', 'yaml' },
+      [2] = { 'go', 'templ', 'lua', 'java', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'svelte', 'json', 'yaml' },
       [4] = { 'python' },
     }
     for i, v in pairs(tabSpaceTable) do
@@ -627,6 +627,11 @@ require('lazy').setup({
             variables = {}, --- @type table<string, string>
           },
         },
+        jsonls = {
+          init_options = {
+            provideFormatter = false,
+          },
+        },
 
         yamlls = {
           settings = { yaml = {
@@ -828,6 +833,7 @@ require('lazy').setup({
         'java',
         'html',
         'javascript',
+        'json',
         'lua',
         'luadoc',
         'markdown',
