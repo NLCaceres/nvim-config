@@ -139,7 +139,7 @@ vim.o.confirm = true
 vim.o.inccommand = 'split' -- Preview substitutions live while typing
 
 vim.o.cursorline = true
-
+vim.o.winborder = 'rounded'
 vim.o.scrolloff = 5 -- Min num of lines on screen above & below your cursor
 
 -- NOTE: Keymaps - See `:help vim.keymap.set()`
