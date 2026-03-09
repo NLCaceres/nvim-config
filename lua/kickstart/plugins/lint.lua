@@ -26,9 +26,7 @@ return {
       group = lint_augroup,
       callback = function()
         -- Only lint IF the file is editable, i.e. ignore documentation files or tooltips
-        if vim.bo.modifiable then
-          lint.try_lint()
-        end
+        if vim.bo.modifiable then lint.try_lint() end
       end,
     })
   end,

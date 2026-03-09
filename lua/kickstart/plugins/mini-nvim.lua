@@ -17,9 +17,7 @@ return {
           filter = function(fs_entry) -- Ignore list to de-clutter the explorer
             local ignore_list = { '%.DS_Store', '^%.git$', '%.vscode', '%.ruby-lsp' }
             for _, ignored_file in ipairs(ignore_list) do
-              if string.find(fs_entry.name, ignored_file, 1, false) then
-                return false
-              end
+              if string.find(fs_entry.name, ignored_file, 1, false) then return false end
             end
             return true
           end,

@@ -7,9 +7,7 @@ return {
     name = 'vangelion',
     lazy = false,
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'vangelion'
-    end,
+    config = function() vim.cmd.colorscheme 'vangelion' end,
   },
   {
     'ray-x/aurora',

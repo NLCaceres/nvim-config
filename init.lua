@@ -106,9 +106,7 @@ vim.o.showmode = false -- Hides mode since status line already shows it
 
 -- Syncs clipboard between your OS and Neovim. See `:help 'clipboard'`
 -- Remove it to keep your OS clipboard independent/untouched
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
 vim.o.breakindent = true -- Wrapped lines keep the same indent level
 vim.o.wrap = false
@@ -152,9 +150,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('i', 'kj', '<Esc>')
 
 -- Toggle Vim Spellchecker - See its useful keybindings starting `[` `]` and `z`
-vim.keymap.set('n', '<leader>tc', function()
-  vim.o.spell = not vim.o.spell
-end, { desc = 'Toggle Spell [C]hecker' })
+vim.keymap.set('n', '<leader>tc', function() vim.o.spell = not vim.o.spell end, { desc = 'Toggle Spell [C]hecker' })
 
 -- Toggle between line number and relative line numbers
 vim.keymap.set('n', '<leader>tl', function()
@@ -175,24 +171,16 @@ vim.keymap.set('n', '<leader>tf', function()
   vim.cmd.quit()
 end, { desc = 'Save, Quit, and [F]inish' })
 -- WARN: `:Ex` != `:ex` - Uppercase = NetRW File explorer vs the vim `:edit` command
-vim.keymap.set('n', '<leader>on', function()
-  require('mini.files').open()
-end, { desc = 'Go to [N]etRW Directory Listing' })
+vim.keymap.set('n', '<leader>on', function() require('mini.files').open() end, { desc = 'Go to [N]etRW Directory Listing' })
 vim.keymap.set('n', '<leader>tn', function()
   vim.cmd.write()
   require('mini.files').open()
 end, { desc = 'Save and open [N]etRW' })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>td', function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end, { desc = 'Toggle [d]iagnostics' })
-vim.keymap.set('n', '[d', function()
-  vim.diagnostic.jump { count = -1, float = true }
-end, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump { count = 1, float = true }
-end, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '<leader>td', function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end, { desc = 'Toggle [d]iagnostics' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump { count = 1, float = true } end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -204,9 +192,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.highlight.on_yank() end,
 })
 vim.api.nvim_create_autocmd('BufReadPost', {
   desc = 'Restore cursor position on file open',
@@ -214,9 +200,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   pattern = '*',
   callback = function()
     local line = vim.fn.line '\'"'
-    if line > 1 and line <= vim.fn.line '$' then
-      vim.cmd 'normal! g\'"'
-    end
+    if line > 1 and line <= vim.fn.line '$' then vim.cmd 'normal! g\'"' end
   end,
 })
 -- Setup how tabs look, usually 2 whitespaces, BUT another method is a `ftplugin` folder
@@ -252,9 +236,7 @@ local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
+  if vim.v.shell_error ~= 0 then error('Error cloning lazy.nvim:\n' .. out) end
 end
 
 ---@type vim.Option
@@ -355,12 +337,8 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sgi', function()
-        builtin.git_status { git_icons = { added = '󱇬', changed = '!=' } }
-      end, { desc = '[S]earch by [GI]t' })
-      vim.keymap.set('n', '<leader>sgr', function()
-        builtin.live_grep { additional_args = { '--hidden', '--sortr=path' } }
-      end, { desc = '[S]earch by [GR]ep' })
+      vim.keymap.set('n', '<leader>sgi', function() builtin.git_status { git_icons = { added = '󱇬', changed = '!=' } } end, { desc = '[S]earch by [GI]t' })
+      vim.keymap.set('n', '<leader>sgr', function() builtin.live_grep { additional_args = { '--hidden', '--sortr=path' } } end, { desc = '[S]earch by [GR]ep' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>/', function() -- Similar to normal "/" keymap
         -- Like `find_files` can add extra config to totally change Telescope presentation
@@ -457,9 +435,7 @@ require('lazy').setup({
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           -- Enables inlay hints directly inline w/ code IF the LSP supports it (uncommon)
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
           end
 
           -- These autocommands highlight and then un-highlight references to the word
@@ -679,9 +655,7 @@ require('lazy').setup({
     keys = {
       {
         '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
+        function() require('conform').format { async = true, lsp_format = 'fallback' } end,
         mode = '',
         desc = '[F]ormat buffer',
       },
@@ -727,9 +701,7 @@ require('lazy').setup({
         version = '2.*',
         build = (function()
           -- NEED build step to support regex in snippets BUT often won't work in Windows
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then return end
           return 'make install_jsregexp'
         end)(),
         dependencies = {
