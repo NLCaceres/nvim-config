@@ -282,39 +282,7 @@ require('lazy').setup({
     event = 'VimEnter', -- Load this plugin when `VimEnter` event happens
     opts = {
       delay = 0, -- Millisecond delay opening popup, independent of `vim.o.timeoutlen`
-      icons = {
-        mappings = vim.g.have_nerd_font, -- With NerdFonts `keys` here can be empty table
-        keys = vim.g.have_nerd_font and {} or { -- Otherwise we need these defaults
-          Up = '<Up> ',
-          Down = '<Down> ',
-          Left = '<Left> ',
-          Right = '<Right> ',
-          C = '<C-…> ',
-          M = '<M-…> ',
-          D = '<D-…> ',
-          S = '<S-…> ',
-          CR = '<CR> ',
-          Esc = '<Esc> ',
-          ScrollWheelDown = '<ScrollWheelDown> ',
-          ScrollWheelUp = '<ScrollWheelUp> ',
-          NL = '<NL> ',
-          BS = '<BS> ',
-          Space = '<Space> ',
-          Tab = '<Tab> ',
-          F1 = '<F1>',
-          F2 = '<F2>',
-          F3 = '<F3>',
-          F4 = '<F4>',
-          F5 = '<F5>',
-          F6 = '<F6>',
-          F7 = '<F7>',
-          F8 = '<F8>',
-          F9 = '<F9>',
-          F10 = '<F10>',
-          F11 = '<F11>',
-          F12 = '<F12>',
-        },
-      },
+      icons = { mappings = vim.g.have_nerd_font },
 
       spec = { -- Documents the keymaps
         { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
@@ -410,7 +378,7 @@ require('lazy').setup({
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'TelescopePreviewerLoaded',
-        callback = function(args) -- Missing helpful `args.data`
+        callback = function(_args) -- Missing helpful `args.data`
           vim.bo.tabstop = 2
           vim.bo.softtabstop = 2
           vim.bo.shiftwidth = 2
