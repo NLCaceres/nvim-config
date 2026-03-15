@@ -1,6 +1,8 @@
 -- NOTE: Helps NVim's language server client use standalone linters to provide diagnostic
 -- messages, particularly when they'd do a better job than the LSP
 
+---@module 'lazy'
+---@type LazySpec
 return {
   'mfussenegger/nvim-lint',
   event = { 'BufReadPre', 'BufNewFile' },

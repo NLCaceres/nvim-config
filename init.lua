@@ -182,6 +182,23 @@ vim.keymap.set('n', '<leader>td', function() vim.diagnostic.enable(not vim.diagn
 vim.keymap.set('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', function() vim.diagnostic.jump { count = 1, float = true } end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+
+-- Diagnostic Config & Keymaps
+-- See :help vim.diagnostic.Opts
+-- vim.diagnostic.config {
+--   update_in_insert = false,
+--   severity_sort = true,
+--   float = { border = 'rounded', source = 'if_many' },
+--   underline = { severity = { min = vim.diagnostic.severity.WARN } },
+--
+--   -- Can switch between these as you prefer
+--   virtual_text = true, -- Text shows up at the end of the line
+--   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+--
+--   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+--   jump = { float = true },
+-- }
+
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Sets up an easier way to exit Vim's terminal mode, instead of `<C-\>` `<C-n>`
@@ -278,6 +295,16 @@ require('lazy').setup({
   -- NOTE: Plugins can list dependencies in spec tables AND it'll grab them for us
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
+    -- By default, Telescope is included and acts as your picker for everything.
+
+    -- If you would like to switch to a different picker (like snacks, or fzf-lua)
+    -- you can disable the Telescope plugin by setting enabled to false and enable
+    -- your replacement picker by requiring it explicitly (e.g. 'custom.plugins.snacks')
+
+    -- Note: If you customize your config for yourself,
+    -- it’s best to remove the Telescope plugin config entirely
+    -- instead of just disabling it here, to keep your config clean.
+    enabled = true,
     event = 'VimEnter',
     branch = 'master',
     dependencies = { -- List this plugin's dependencies
@@ -599,11 +626,13 @@ require('lazy').setup({
         'prettierd', -- Daemon version of fast but opinionated Prettier
         'eslint_d', -- Fastest way to use `ESLint` (over `eslint-lsp`)
       })
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       for server, config in pairs(servers) do
         vim.lsp.config(server, config)
       end
+      --TODO: Allow enable in above loop, without following `mason-lspconfig`?
 
       -- NOTE: LSPs added to `server` table list get auto-installed here
       require('mason-lspconfig').setup {
@@ -660,6 +689,8 @@ require('lazy').setup({
         desc = '[F]ormat buffer',
       },
     },
+    ---@module 'conform'
+    ---@type conform.setupOpts
     opts = {
       notify_on_error = false,
       formatters_by_ft = { -- By Filetype
@@ -769,7 +800,8 @@ require('lazy').setup({
   -- Treesitter, therefore, is instrumental for linters, plugins like `mini.ai` to make
   { -- `yinq` as a motion, or colorschemes to highlight a particular code block pattern
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
+    lazy = false,
+    build = ':TSUpdate', --TODO: Check if `config` version is better
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     opts = {
       ensure_installed = {

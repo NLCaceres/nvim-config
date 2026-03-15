@@ -1,5 +1,7 @@
 -- NOTE: Adds git symbols next to line nums + helpful git keymaps - Originally in init.lua
 
+---@module 'lazy'
+---@type LazySpec
 return {
   {
     'lewis6991/gitsigns.nvim',
