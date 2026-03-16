@@ -29,60 +29,57 @@ alternative [installation methods below](#alternative-neovim-installation-method
 ### Install External Dependencies
 
 External Requirements:
-- Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
-- [ripgrep](https://github.com/BurntSushi/ripgrep#installation),
-  [fd-find](https://github.com/sharkdp/fd#installation)
-- [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md#installation)
-- Clipboard tool (xclip/xsel/win32yank or other depending on the platform)
-- A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
-  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
-- Emoji fonts (Ubuntu only, and only if you want emoji!) `sudo apt install fonts-noto-color-emoji`
-- Language Setup:
-  - If you want to write Typescript, you need `npm`
-  - If you want to write Golang, you will need `go`
-  - etc.
+
+* Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
+* [ripgrep](https://github.com/BurntSushi/ripgrep#installation),
+[fd-find](https://github.com/sharkdp/fd#installation)
+* [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md#installation)
+* Clipboard tool (xclip/xsel/win32yank or other depending on the platform)
+* A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
+  * if you have it set `vim.g.have_nerd_font` in `init.lua` to true
+* Emoji fonts (Ubuntu only, and only if you want emoji!) `sudo apt install fonts-noto-color-emoji`
+* Language Setup:
+  * If you want to write Typescript, you need `npm`
+  * If you want to write Golang, you will need `go`
+  * etc.
 
 > [!NOTE]
-> See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
+> See [Install Recipes](#install-recipes) for Windows or Linux specific notes
 > and quick install snippets
 
 ### Install Kickstart
 
 > [!NOTE]
-> [Backup](#FAQ) your previous configuration (if any exists)
+> [Backup](#faq) your previous configuration (if any exists)
 
-Neovim's configurations are located under the following paths, depending on your OS:
+Neovim's config is placed under the following paths, depending on OS:
 
 | OS | PATH |
 | :- | :--- |
 | Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
-| Windows (cmd)| `%localappdata%\nvim\` |
-| Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
+| Windows (cmd) | `%localappdata%\nvim\` |
+| Windows (powershell) | `$env:LOCALAPPDATA\nvim\` |
 
-#### Recommended Step
+#### Either Fork on Github to clone into `~/.config/nvim`
 
 [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repo
-so that you have your own copy that you can modify, then install by cloning the
-fork to your machine using one of the commands below, depending on your OS.
+to make your own modifiable copy repo on Github that can be then be cloned locally.
+To do so, just need to go the Github repo of `Kickstart.nvim`, and click `Fork`
 
 > [!NOTE]
-> Your fork's URL will be something like this:
-> `https://github.com/<your_github_username>/kickstart.nvim.git`
+> The `git clone` will use your fork's URL, not this one
+> e.g. `git clone https://github.com/<your_username>/<your_kickstart>.git`
 
-You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
-too - it's ignored in the kickstart repo to make maintenance easier, but it's
-[recommended to track it in version control](https://lazy.folke.io/usage/lockfile).
-
-#### Clone kickstart.nvim
+#### Or clone into `~/.config/nvim` and then add an upstream remote repo
 
 > [!NOTE]
-> If following the recommended step above (i.e., forking the repo), replace
-> `nvim-lua` with `<your_github_username>` in the commands below
+> Whether forking or directly cloning the repo, ALWAYS run one of the
+> following to ensure Kickstart is cloned into `~/.config/nvim`
 
 <details><summary> Linux and Mac </summary>
 
 ```sh
-git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+git clone https://github.com/<your_username>/<your_kickstart>.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 ```
 
 </details>
@@ -102,6 +99,18 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nv
 ```
 
 </details>
+
+If cloning Kickstart directly, then you must rename its remote URL into `upstream`
+to setup the fork (your repo) as the new `origin` remote repo.
+
+```sh
+git remote rename origin upstream
+git remote add origin https://github.com/<your_username>/<your_kickstart>.git
+```
+
+> [!NOTE]
+> To sync Neovim plugin versions, make sure to remove `lazy-lock.json` from the
+> `.gitignore` file, since ignoring it is only helpful for the main Kickstart repo
 
 ### Post Installation
 
@@ -123,6 +132,18 @@ examples of adding popularly requested plugins.
 > [!NOTE]
 > For more information about a particular plugin check its repository's documentation.
 
+#### Handling your Fork
+
+To get updates from the upstream main version of Kickstart,
+first fetch the updates `git fetch upstream`
+then merge the updates `git merge upstream/main`
+Do not directly `git pull` in the changes, so you can avoid unexpected conflicts
+Do not `git rebase` instead of `git merge`, it can make the git history even
+messier and make any conflicts more difficult to resolve.
+Especially as you add on your own config preferences, you'll have to deal with
+merge conflicts, where you generally will just take the changes you've made over
+the changes made by Kickstart, BUT as Neovim itself updates, some Kickstart
+changes will be helpful to restoring plugin functionality.
 
 ### Getting Started
 
